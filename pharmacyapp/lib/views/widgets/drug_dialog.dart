@@ -1,15 +1,17 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:pharmacyapp/controllers/cart.dart";
+import "package:pharmacyapp/controllers/review.dart";
 import "package:pharmacyapp/models/drug_model.dart";
 import "package:pharmacyapp/views/widgets/raiting_widget.dart";
 import "package:google_fonts/google_fonts.dart";
 
 void showDrugDialog(BuildContext context, DrugModel drug) {
   Size screenSize = MediaQuery.of(context).size;
-  final comments = 0.obs;
-  final CartController controller = Get.put(CartController());
-
+  final CartController cartController = Get.put(CartController());
+  final ReviewController controller = Get.put(ReviewController());
+  controller.getReviews(drug.id);
+  print(controller.reviewArr.length);
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
@@ -42,12 +44,17 @@ void showDrugDialog(BuildContext context, DrugModel drug) {
               ),
             ),
             const Spacer(),
-            RatingWidget(rating: drug.rating),
+            Container(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: RatingWidget(rating: drug.rating),
+              ),
+            ),
             const SizedBox(height: 10),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Комментарии: ${comments.value}',
+                'Комментарии: ${controller.reviewArr.length}',
                 style: GoogleFonts.roboto(
                   color: const Color(0xff101617),
                   fontSize: 18,
@@ -57,14 +64,19 @@ void showDrugDialog(BuildContext context, DrugModel drug) {
             ),
             const SizedBox(height: 10),
             Obx(() {
-              return comments.value > 0
+              return controller.reviewArr.isNotEmpty
                   ? SizedBox(
                       height: 200,
                       child: ListView.builder(
-                        itemCount: comments.value,
+                        itemCount: controller.reviewArr.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ListTile(
-                            title: Text('Элемент $index'),
+                            title: Text(
+                                '${controller.reviewArr[index].user.firstName} ${controller.reviewArr[index].user.lastName}'),
+                            subtitle: Text(controller.reviewArr[index].text),
+                            trailing: RatingWidget(
+                                rating: controller.reviewArr[index].rating
+                                    .toDouble()),
                           );
                         },
                       ),
@@ -88,7 +100,7 @@ void showDrugDialog(BuildContext context, DrugModel drug) {
                 minimumSize: Size(screenSize.width, 50),
               ),
               onPressed: () {
-                controller.addToCart(drug.id);
+                cartController.addToCart(drug.id);
                 Navigator.pop(context);
               },
               child: Ink(

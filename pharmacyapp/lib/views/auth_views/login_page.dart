@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InputWidget(
-                hintText: 'Login',
+                hintText: 'Логин',
                 controller: _loginController,
                 obscureText: false,
               ),
@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 30,
               ),
               InputWidget(
-                hintText: 'Password',
+                hintText: 'Пароль',
                 controller: _passwordController,
                 obscureText: true,
               ),
@@ -68,9 +68,9 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white,
                         )
                       : Text(
-                          'Login',
+                          'Войти',
                           selectionColor: Colors.white,
-                          style: GoogleFonts.poppins(fontSize: size * 0.040),
+                          style: GoogleFonts.roboto(fontSize: size * 0.040),
                         );
                 }),
               ),
@@ -82,8 +82,8 @@ class _LoginPageState extends State<LoginPage> {
                   Get.to(() => const RegisterPage());
                 },
                 child: Text(
-                  'Register',
-                  style: GoogleFonts.poppins(
+                  'Зарегистрироваться',
+                  style: GoogleFonts.roboto(
                     fontSize: size * 0.040,
                     color: Colors.black,
                   ),
@@ -99,8 +99,8 @@ class _LoginPageState extends State<LoginPage> {
   AppBar appBar() {
     return AppBar(
       title: Text(
-        'Login Page',
-        style: GoogleFonts.poppins(
+        'Вход',
+        style: GoogleFonts.roboto(
           color: Colors.black,
           fontSize: 18,
           fontWeight: FontWeight.bold,

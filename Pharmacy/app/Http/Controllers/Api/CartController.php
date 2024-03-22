@@ -4,12 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CartController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function index(Request $request): JsonResponse
     {
         $cart = Cart::where('user_id', $request->user()->id)->get();
@@ -17,7 +23,11 @@ class CartController extends Controller
         return response()->json($cart);
     }
 
-    public function show(int $id)
+    /**
+     * @param int $id
+     * @return Application|\Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
+     */
+    public function show(int $id): Application|\Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         $cart = Cart::where('user_id', $id)->get();
 
@@ -26,7 +36,12 @@ class CartController extends Controller
         ], 200);
     }
 
-    public function store(Request $request, int $drug_id)
+    /**
+     * @param Request $request
+     * @param int $drug_id
+     * @return Application|\Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
+     */
+    public function store(Request $request, int $drug_id): Application|\Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         $user_id = $request->user()->id;
 
@@ -38,7 +53,12 @@ class CartController extends Controller
         return response($cart, Response::HTTP_ACCEPTED);
     }
 
-    public function update(Request $request, int $id)
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(Request $request, int $id): JsonResponse
     {
         $cart = Cart::findOrFail($id);
 
@@ -56,7 +76,11 @@ class CartController extends Controller
         return response()->json(['message' => 'Cant change value']);
     }
 
-    public function delete(int $id)
+    /**
+     * @param int $id
+     * @return Application|\Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
+     */
+    public function delete(int $id): Application|\Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         Cart::destroy($id);
 

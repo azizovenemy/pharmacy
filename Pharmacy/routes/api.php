@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\Api\AutomatizationController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\DrugCategoryController;
 use App\Http\Controllers\Api\DrugController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Auth\AuthenticationController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\AutomatizationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,15 +29,15 @@ Route::post('login', [AuthenticationController::class, 'login']);
 Route::get('user', [UserController::class, 'index'])->middleware('auth:sanctum');
 
 Route::get('drug/index', [DrugController::class, 'index']);
-Route::post('drug_by_category/{category_id}', [DrugController::class, 'index_by_category']);
-Route::post('drug_by_text/{text}', [DrugController::class, 'index_by_text']);
+Route::get('drug_by_category/{category_id}', [DrugController::class, 'index_by_category']);
+Route::get('drug_by_text/{text}', [DrugController::class, 'index_by_text']);
 Route::post('drug/store', [DrugController::class, 'store']);
 
 Route::get('drug-categories', [DrugCategoryController::class, 'index']);
 Route::get('drug-categories/{id}', [DrugCategoryController::class, 'show']);
 
-Route::get('reviews/{drug_id}', [DrugController::class, 'review_index']);
-Route::post('reviews/{drug_id}', [DrugController::class, 'review_store']);
+Route::get('reviews/{drug_id}', [ReviewController::class, 'show']);
+Route::post('reviews/{drug_id}', [ReviewController::class, 'store'])->middleware('auth:sanctum');
 
 Route::get('cart', [CartController::class, 'index'])->middleware('auth:sanctum');
 Route::post('cart/{drug_id}', [CartController::class, 'store'])->middleware('auth:sanctum');

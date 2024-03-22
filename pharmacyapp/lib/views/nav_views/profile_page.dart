@@ -24,6 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
+    _controller.getUser();
     return Scaffold(
       appBar: appBar(),
       body: Center(
@@ -105,7 +106,7 @@ class _ProfilePageState extends State<ProfilePage> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
-            'Ваша скидка: 25%',
+            'Ваша скидка: ${user.personalDiscount}',
             style: GoogleFonts.roboto(
               fontSize: 22,
               color: Colors.pinkAccent,
@@ -150,7 +151,10 @@ class _ProfilePageState extends State<ProfilePage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              _controller.quitAccount();
+              _authenticationController.checkAuthorized();
+            },
             style: ElevatedButton.styleFrom(
               maximumSize: Size(screenSize.width / 3, 40),
               backgroundColor: Colors.redAccent.withOpacity(0.8),

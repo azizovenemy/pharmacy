@@ -20,14 +20,16 @@ class MainPage extends State<HomePage> {
     return Scaffold(
       appBar: appBar(),
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          _searchModule(),
-          const SizedBox(height: 25),
-          _categoryModule(),
-          const SizedBox(height: 25),
-          _drugsModule(),
-        ],
+      body: IntrinsicHeight(
+        child: Column(
+          children: [
+            _searchModule(),
+            const SizedBox(height: 25),
+            _categoryModule(),
+            const SizedBox(height: 25),
+            _drugsModule(),
+          ],
+        ),
       ),
     );
   }
@@ -54,7 +56,7 @@ class MainPage extends State<HomePage> {
                   child: CircularProgressIndicator(),
                 )
               : SizedBox(
-                  height: 500,
+                  height: 450,
                   child: CustomScrollView(
                     slivers: <Widget>[
                       SliverGrid(
@@ -69,6 +71,7 @@ class MainPage extends State<HomePage> {
                           childCount: _controller.drugArr.length,
                           (BuildContext context, int index) {
                             return Container(
+                              height: 150,
                               margin: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: _controller.drugArr[index].id % 2 != 0
@@ -248,7 +251,11 @@ class MainPage extends State<HomePage> {
       ),
       child: TextField(
         onChanged: (value) {
-          _controller.getDrugsByText(value);
+          if (value != '') {
+            _controller.getDrugsByText(value);
+          } else {
+            _controller.getDrugsByText("|");
+          }
         },
         decoration: InputDecoration(
           filled: true,

@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('drug_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('drug_id')->constrained();
             $table->unsignedTinyInteger('quantity')->default(1);
         });
     }

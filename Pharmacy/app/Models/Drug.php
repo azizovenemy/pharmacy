@@ -13,6 +13,8 @@ class Drug extends Model
 
     protected $primaryKey = 'id';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'title',
         'description',
@@ -23,7 +25,7 @@ class Drug extends Model
 
     public function category(): BelongsTo
     {
-        return  $this->belongsTo(DrugCategory::class);
+        return $this->belongsTo(DrugCategory::class);
     }
 
     public function reviews(): HasMany

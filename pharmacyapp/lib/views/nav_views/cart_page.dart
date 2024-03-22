@@ -135,7 +135,9 @@ class _CartPageState extends State<CartPage> {
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _controller.createOrder();
+                      },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.transparent,
                         minimumSize: Size(screenSize.width, 60),

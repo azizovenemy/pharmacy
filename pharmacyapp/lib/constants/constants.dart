@@ -8,3 +8,4 @@ String drugsByText = '/drug_by_text/';
 String cart = '/cart/';
 String user = '/user';
 String orders = '/orders';
+String reviews = '/reviews/';

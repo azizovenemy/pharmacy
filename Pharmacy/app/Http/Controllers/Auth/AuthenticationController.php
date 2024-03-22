@@ -6,12 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends Controller
 {
-    public function register(RegisterRequest $request)
+    /**
+     * @param RegisterRequest $request
+     * @return \Illuminate\Foundation\Application|Response|Application|ResponseFactory
+     */
+    public function register(RegisterRequest $request): \Illuminate\Foundation\Application|Response|Application|ResponseFactory
     {
         $request->validated();
 
@@ -31,7 +38,11 @@ class AuthenticationController extends Controller
         ], 201);
     }
 
-    public function login(LoginRequest $request)
+    /**
+     * @param LoginRequest $request
+     * @return \Illuminate\Foundation\Application|Response|Application|ResponseFactory
+     */
+    public function login(LoginRequest $request): \Illuminate\Foundation\Application|Response|Application|ResponseFactory
     {
         $request->validated();
 

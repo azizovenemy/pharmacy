@@ -27,114 +27,93 @@ class CartController extends GetxController {
   }
 
   Future addToCart(int id) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
-      await http.post(
-        Uri.parse(url + cart + id.toString()),
-        headers: {
-          'Application': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-      );
-    } catch (e) {
-      print(e);
-    }
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    await http.post(
+      Uri.parse(url + cart + id.toString()),
+      headers: {
+        'Application': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
   }
 
   Future getCarts() async {
     cartArr.clear();
-    try {
-      isLoading.value = true;
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
-      var response = await http.get(
-        Uri.parse(url + cart),
-        headers: {
-          'Application': 'application/json',
-          'Authorization': 'Bearer $token'
-        },
-      );
-      if (response.statusCode == 200) {
-        for (var item in json.decode(response.body)) {
-          cartArr.add(CartModel.fromJson(item));
-        }
+    isLoading.value = true;
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    var response = await http.get(
+      Uri.parse(url + cart),
+      headers: {
+        'Application': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+    if (response.statusCode == 200) {
+      for (var item in json.decode(response.body)) {
+        cartArr.add(CartModel.fromJson(item));
       }
-      isLoading.value = false;
-    } catch (e) {
-      isLoading.value = false;
-      print(e.toString());
     }
+    isLoading.value = false;
   }
 
   Future updateQuantity({
     required int id,
     required int amount,
   }) async {
-    try {
-      isLoading.value = true;
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
-      var data = {
-        'amount': amount.toString(),
-      };
-      var response = await http.put(
-        Uri.parse(url + cart + id.toString()),
-        headers: {
-          'Application': 'application/json',
-          'Authorization': 'Bearer $token'
-        },
-        body: data,
-      );
-      if (response.statusCode == 200) {
-        getCarts();
-      }
-    } catch (e) {
-      print(e);
+    isLoading.value = true;
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    var data = {
+      'amount': amount.toString(),
+    };
+    var response = await http.put(
+      Uri.parse(url + cart + id.toString()),
+      headers: {
+        'Application': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+      body: data,
+    );
+    if (response.statusCode == 200) {
+      getCarts();
     }
   }
 
   Future deleteCart({
     required int id,
   }) async {
-    try {
-      isLoading.value = true;
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
-      var response = await http.delete(
-        Uri.parse(url + cart + id.toString()),
-        headers: {
-          'Application': 'application/json',
-          'Authorization': 'Bearer $token'
-        },
-      );
-      if (response.statusCode == 200) {
-        getCarts();
-      }
-      isLoading.value = false;
-    } catch (e) {
-      print(e);
+    isLoading.value = true;
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    var response = await http.delete(
+      Uri.parse(url + cart + id.toString()),
+      headers: {
+        'Application': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+    if (response.statusCode == 200) {
+      getCarts();
     }
+    isLoading.value = false;
   }
 
   Future createOrder() async {
-    try {
-      isLoading.value = true;
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
-      var response = await http.post(
-        Uri.parse(url + cart),
-        headers: {
-          'Application': 'application/json',
-          'Authorization': 'Bearer $token'
-        },
-      );
-      if (response.statusCode == 200) {
-        cartArr.clear();
-      }
-      isLoading.value = false;
-    } catch (e) {
-      print(e);
+    isLoading.value = true;
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    var response = await http.post(
+      Uri.parse(url + orders),
+      headers: {
+        'Application': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+    if (response.statusCode == 200) {
+      cartArr.clear();
     }
+    isLoading.value = false;
   }
 }

@@ -27,7 +27,7 @@ class DrugModel {
         id: json["id"],
         title: json["title"],
         description: json["description"],
-        categoryId: json["category_id"],
+        categoryId: json["drug_category_id"],
         image: json["image"],
         price: double.parse(json["price"]),
         rating: double.parse(json["rating"]),

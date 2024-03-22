@@ -26,12 +26,11 @@ class AuthenticationController extends GetxController {
     return prefs.getString('token');
   }
 
-  Future register({
-    required String firstName,
-    required String lastName,
-    required String login,
-    required String password,
-  }) async {
+  Future register(
+      {required String firstName,
+      required String lastName,
+      required String login,
+      required String password}) async {
     try {
       isLoading.value = true;
       var data = {
@@ -40,7 +39,6 @@ class AuthenticationController extends GetxController {
         'login': login,
         'password': password,
       };
-
       var response = await http.post(
         Uri.parse(url + reg),
         headers: {
@@ -48,14 +46,12 @@ class AuthenticationController extends GetxController {
         },
         body: data,
       );
-
       var jsonResponse = json.decode(response.body);
-
       if (response.statusCode == 201) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', jsonResponse['token']);
-        hasAuthorized.value = true;
         isLoading.value = false;
+        checkAuthorized();
         Get.offAll(() => const MainPage());
       } else {
         isLoading.value = false;
@@ -70,21 +66,16 @@ class AuthenticationController extends GetxController {
       }
     } catch (e) {
       isLoading.value = false;
-      print(e);
     }
   }
 
-  Future login({
-    required String login,
-    required String password,
-  }) async {
+  Future login({required String login, required String password}) async {
     try {
       isLoading.value = true;
       var data = {
         'login': login,
         'password': password,
       };
-
       var response = await http.post(
         Uri.parse(url + log),
         headers: {
@@ -92,14 +83,12 @@ class AuthenticationController extends GetxController {
         },
         body: data,
       );
-
       var jsonResponse = json.decode(response.body);
-
       if (response.statusCode == 200) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', jsonResponse['token']);
-        hasAuthorized.value = true;
         isLoading.value = false;
+        checkAuthorized();
         Get.offAll(() => const MainPage());
       } else {
         isLoading.value = false;
@@ -114,7 +103,6 @@ class AuthenticationController extends GetxController {
       }
     } catch (e) {
       isLoading.value = false;
-      print(e);
     }
   }
 }

@@ -4,18 +4,20 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): mixed
     {
         return $request->user();
     }
 
-    public function store(Request $request)
+    public function store(Request $request): Application|\Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         $user = User::query()->create([
             'first_name' => $request->input('first_name'),
@@ -27,12 +29,12 @@ class UserController extends Controller
         return response($user, Response::HTTP_ACCEPTED);
     }
 
-    public function show(int $id)
+    public function show(int $id): Application|\Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         return response(User::find($id));
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): Application|\Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         $drug = User::find($id);
         $drug->update($request->only('first_name', 'last_name', 'login', 'password'));
@@ -40,7 +42,7 @@ class UserController extends Controller
         return response($drug, Response::HTTP_ACCEPTED);
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id): Application|\Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         $drug = User::find($id);
         $drug->order()->destroy();

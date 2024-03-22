@@ -25,7 +25,7 @@ class OrderModel {
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         id: json["id"],
         userId: json["user_id"],
-        statusId: json["status_id"],
+        statusId: json["order_status_id"],
         price: double.parse(json["price"]),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),

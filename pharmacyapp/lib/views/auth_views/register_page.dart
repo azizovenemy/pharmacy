@@ -34,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InputWidget(
-                hintText: 'First Name',
+                hintText: 'Имя',
                 controller: _firstNameController,
                 obscureText: false,
               ),
@@ -42,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 30,
               ),
               InputWidget(
-                hintText: 'Last Name',
+                hintText: 'Фамилия',
                 controller: _lastNameController,
                 obscureText: false,
               ),
@@ -50,7 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 30,
               ),
               InputWidget(
-                hintText: 'Login',
+                hintText: 'Логин',
                 controller: _loginController,
                 obscureText: false,
               ),
@@ -58,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 30,
               ),
               InputWidget(
-                hintText: 'Password',
+                hintText: 'Пароль',
                 controller: _passwordController,
                 obscureText: true,
               ),
@@ -88,9 +88,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           color: Colors.white,
                         )
                       : Text(
-                          'Register',
+                          'Зарегистрироваться',
                           selectionColor: Colors.white,
-                          style: GoogleFonts.poppins(fontSize: size * 0.040),
+                          style: GoogleFonts.roboto(fontSize: size * 0.040),
                         );
                 }),
               ),
@@ -102,8 +102,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   Get.to(() => const LoginPage());
                 },
                 child: Text(
-                  'Login',
-                  style: GoogleFonts.poppins(
+                  'Войти',
+                  style: GoogleFonts.roboto(
                     fontSize: size * 0.040,
                     color: Colors.black,
                   ),
@@ -119,8 +119,8 @@ class _RegisterPageState extends State<RegisterPage> {
   AppBar appBar() {
     return AppBar(
       title: Text(
-        'Search Page',
-        style: GoogleFonts.poppins(
+        'Регистрация',
+        style: GoogleFonts.roboto(
           color: Colors.black,
           fontSize: 18,
           fontWeight: FontWeight.bold,
