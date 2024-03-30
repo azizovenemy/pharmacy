@@ -11,7 +11,10 @@ void showOrdersDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return controller.isLoading.value
-          ? SizedBox(
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : SizedBox(
               height: screenSize.height * 0.8,
               width: screenSize.width,
               child: ListView.builder(
@@ -51,9 +54,6 @@ void showOrdersDialog(BuildContext context) {
                   );
                 },
               ),
-            )
-          : const Center(
-              child: CircularProgressIndicator(),
             );
     },
     isScrollControlled: true,

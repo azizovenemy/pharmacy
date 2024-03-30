@@ -17,8 +17,8 @@ class ReviewController extends GetxController {
         'Application': 'application/json',
       },
     );
+    reviewArr.clear();
     if (response.statusCode == 200) {
-      reviewArr.clear();
       for (var item in json.decode(response.body)['reviews']) {
         reviewArr.add(ReviewModel.fromJson(item));
       }

@@ -21,6 +21,7 @@ class OrderController extends GetxController {
         'Authorization': 'Bearer $token',
       },
     );
+    print(response.body);
     if (response.statusCode == 200) {
       orderArr.clear();
       for (var item in json.decode(response.body)['orders']) {

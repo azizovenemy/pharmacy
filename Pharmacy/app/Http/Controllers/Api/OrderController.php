@@ -61,6 +61,8 @@ class OrderController extends Controller
                 $price += $drug->price * $orderItem->quantity;;
                 $cart->delete();
             }
+            $discount = $request->user()->id;
+            $price = $price - ($price * $discount / 100);
             $order->price = $price;
             $order->save();
             DB::commit();
